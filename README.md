@@ -56,7 +56,7 @@ Esta función agrupa un DataFrame según una columna específica y calcula la me
 - Llamar a la función group_and_aggregate pasando un DataFrame, el nombre de la columna por la que se desea agrupar y la columna cuyas medias se quieren calcular.
 - La función devolverá un nuevo DataFrame que contiene los valores agrupados y sus promedios correspondientes.
 
-# Ejercicio 6 -> Modelo de lcasificación logística
+# Ejercicio 6 -> Modelo de clasificación logística
 Esta función entrena un modelo de regresión logística utilizando datos binarios. Es particularmente útil para problemas de clasificación, donde el objetivo es predecir una de dos clases.
 
 ### Proceso:
