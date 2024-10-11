@@ -42,9 +42,11 @@ def generate_regression_data(n_samples: int):
 
     data = {name: [] for name in feature_names}
 
+    #Caluclated by row
     for _ in range(n_samples):
+        #loop columns
         for name in feature_names:
-            random_int = fake_instance.random_int(min=2, max=5)  
+            random_int = fake_instance.random_int(min=2, max=4)  
             data[name].append(fake_instance.random_number(digits=random_int)) 
     
     X = pd.DataFrame(data)
@@ -176,9 +178,9 @@ result = filter_dataframe(df_subset, 'indus', 7.88)
 # EXERCISE 2
 # Generate a dataset for a regression problem with a specified number of samples
 X, Y = generate_regression_data(10)
-print(X)  
-print()
-print(Y)  
+# print(X)  
+# print()
+# print(Y)  
 
 # EXERCISE 3
 # Train a multiple linear regression model using the generated data
