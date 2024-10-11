@@ -15,14 +15,20 @@ Filtrar las filas que tengan valores mayores al umbral en la columna especificad
 Esta función permite generar un conjunto de datos simulado para un problema de regresión, con una cantidad de muestras especificada por el usuario. La función crea varias variables independientes y una variable dependiente (con ruido) basada en una combinación lineal de las variables independientes.
 
 ### Proceso
-- Determinar un número aleatorio de características (variables independientes)
-- Generar nombres para las características de manera dinámica
-- Asignar valores aleatorios a cada característica simulando datos para todas las muestras.
-- Crear un conjunto de datos con estas características 
-- Generar coeficientes aleatorios que se aplicarán a cada característica, los cuales serán utilizados para calcular la variable dependiente.
-- Calcular la variable dependiente, multiplicando cada característica por su coeficiente respectivo.
-- Agregar ruido aleatorio a la variable dependiente 
--Devolver el data frame y la serie
+-Se verifica si n_samples es menor o igual a cero; si es así, se retorna None.
+-Se crea una instancia de Faker para generar datos aleatorios.
+-Se genera un número aleatorio de características entre 4 y 10.
+-Se inicializa un diccionario vacío para almacenar los datos de cada característica.
+-Se itera sobre el número de muestras:
+Para cada característica, se genera un número aleatorio de dígitos entre 2 y 5.
+-Se genera un número aleatorio con la cantidad de dígitos especificada y se añade al diccionario correspondiente.
+-Se crea un DataFrame X a partir del diccionario de datos.
+-Se generan coeficientes aleatorios entre 1 y 4 para cada característica.
+-Se inicializa una lista vacía para los valores dependientes.
+-Se itera sobre cada muestra:
+-Se genera ruido aleatorio entre -10 y 10.
+-Se calcula el valor dependiente como una combinación lineal de las características y se añade el ruido.
+-Se retorna el DataFrame X y la lista de valores dependientes Y
 
 ### Ejemplo de implementación:
 - Llamar a la función generate_regression_data con el número deseado de muestras.

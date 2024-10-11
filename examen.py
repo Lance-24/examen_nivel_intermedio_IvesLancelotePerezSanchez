@@ -20,6 +20,12 @@ def filter_dataframe(df: pd.DataFrame, column_name: str, threshold: float) -> pd
     filtered_df = df[df[column_name] > threshold]
     return filtered_df
 
+from faker import Faker
+import pandas as pd
+
+from faker import Faker
+import pandas as pd
+
 def generate_regression_data(n_samples: int):
     """
     Simulate a dataset for a regression problem.
@@ -34,19 +40,27 @@ def generate_regression_data(n_samples: int):
     if n_samples <= 0:
         return None
     
-    fake = Faker()
+    fake_instance = Faker()
 
-    n_features = random.randint(4, 10)  
-
+    n_features = fake_instance.random_int(min=4, max=10) 
     feature_names = [f'fe{i+1}' for i in range(n_features)]
 
-    data = {name: [fake.random_number(digits=3) for _ in range(n_samples)] for name in feature_names}
+    data = {name: [] for name in feature_names}
+
+    for _ in range(n_samples):
+        for name in feature_names:
+            random_int = fake_instance.random_int(min=2, max=5)  
+            data[name].append(fake_instance.random_number(digits=random_int)) 
+    
     X = pd.DataFrame(data)
 
-    coefficients = np.random.uniform(1, 3, size=n_features)
+    coefficients = [fake_instance.pyfloat(min_value=1, max_value=4) for _ in range(n_features)]
 
-    noise = np.random.normal(0, 10, n_samples)  
-    y = sum(coefficients[i] * X[feature_names[i]] for i in range(n_features)) + noise 
+    y = []
+    for i in range(n_samples):
+        noise = fake_instance.pyfloat(min_value=-10, max_value=10) 
+        dependent_value = sum(coefficients[j] * X.iloc[i][feature_names[j]] for j in range(n_features)) + noise
+        y.append(dependent_value)
 
     return X, pd.Series(y)
 
