@@ -20,11 +20,6 @@ def filter_dataframe(df: pd.DataFrame, column_name: str, threshold: float) -> pd
     filtered_df = df[df[column_name] > threshold]
     return filtered_df
 
-from faker import Faker
-import pandas as pd
-
-from faker import Faker
-import pandas as pd
 
 def generate_regression_data(n_samples: int):
     """
