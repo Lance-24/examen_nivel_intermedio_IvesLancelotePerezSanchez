@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import random 
 from sklearn.linear_model import LinearRegression, LogisticRegression
 from sklearn.model_selection import train_test_split
 from faker import Faker
@@ -24,30 +25,28 @@ def generate_regression_data(n_samples: int):
     Simulate a dataset for a regression problem.
 
     • Input: 
-    - n_samples 
+    - n_samples: Number of samples to generate.
 
     • Output: 
-    - X DataFrame dependent variable
-    - Y Series independent varaible
+    - X DataFrame (independent variables)
+    - y Series (dependent variable)
     """
-
     if n_samples <= 0:
         return None
     
     fake = Faker()
 
-    # Independent variables
-    data = {
-        'fe1': [fake.random_number(digits=3) for _ in range(n_samples)],
-        'fe2': [fake.random_number(digits=3) for _ in range(n_samples)],
-        'fe3': [fake.random_number(digits=3) for _ in range(n_samples)],
-    }
+    n_features = random.randint(4, 10)  
 
+    feature_names = [f'fe{i+1}' for i in range(n_features)]
+
+    data = {name: [fake.random_number(digits=3) for _ in range(n_samples)] for name in feature_names}
     X = pd.DataFrame(data)
 
-    # Dependent variable
+    coefficients = np.random.uniform(1, 3, size=n_features)
+
     noise = np.random.normal(0, 10, n_samples)  
-    y = 1.8 * X['fe1'] + 2.5 * X['fe2'] + 2.2 * X['fe3'] + noise 
+    y = sum(coefficients[i] * X[feature_names[i]] for i in range(n_features)) + noise 
 
     return X, pd.Series(y)
 
@@ -76,11 +75,8 @@ def flatten_list(list_of_list: list) -> list:
     • Output: 
     - Flaten list
     """
-    flat_list = []
-    for sublist in list_of_list:  
-        for item in sublist:     
-            flat_list.append(item) 
-    return flat_list
+    return [item for sublist in list_of_list for item in sublist]
+
 def group_and_aggregate(df: pd.DataFrame, group_column: str, aggregate_column: str) -> pd.DataFrame:
     """
     Group a DataFrame by a specified column and calculate the mean of another column.
@@ -132,7 +128,8 @@ def apply_function_to_column(df: pd.DataFrame, column_name: str, func) -> pd.Dat
     • Output: 
     - pd.DataFrame: The modified DataFrame with the updated column.
     """
-    df[column_name] = df[column_name].apply(func)
+    df_copy = df.copy()
+    df_copy[column_name] = df_copy[column_name].apply(func)
     return df
 
 def quadratic_function(x) -> float:
@@ -158,11 +155,7 @@ def filter_and_square(numbers) -> list:
     • Output: 
     - Filtered and square numbers
     """
-    square_numbers = [] 
-    for x in numbers:
-        if x>5:
-            square_numbers.append(x**2)
-    return square_numbers
+    return [x**2 for x in numbers if x > 5]
 
 # EXERCISE 1
 # Load the DataFrame (the first column is set as the index)
@@ -174,9 +167,9 @@ result = filter_dataframe(df_subset, 'indus', 7.88)
 # EXERCISE 2
 # Generate a dataset for a regression problem with a specified number of samples
 X, Y = generate_regression_data(10)
-# print(X)  
-# print()
-# print(Y)  
+print(X)  
+print()
+print(Y)  
 
 # EXERCISE 3
 # Train a multiple linear regression model using the generated data

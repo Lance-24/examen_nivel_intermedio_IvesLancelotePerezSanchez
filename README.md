@@ -15,8 +15,14 @@ Filtrar las filas que tengan valores mayores al umbral en la columna especificad
 Esta función permite generar un conjunto de datos simulado para un problema de regresión, con una cantidad de muestras especificada por el usuario. La función crea varias variables independientes y una variable dependiente (con ruido) basada en una combinación lineal de las variables independientes.
 
 ### Proceso
-- Generar tres variables independientes simuladas usando valores aleatorios.
-- Crear la variable dependiente a partir de una combinación lineal de las variables independientes y añadiendo ruido para tener variabilidad.
+- Determinar un número aleatorio de características (variables independientes)
+- Generar nombres para las características de manera dinámica
+- Asignar valores aleatorios a cada característica simulando datos para todas las muestras.
+- Crear un conjunto de datos con estas características 
+- Generar coeficientes aleatorios que se aplicarán a cada característica, los cuales serán utilizados para calcular la variable dependiente.
+- Calcular la variable dependiente, multiplicando cada característica por su coeficiente respectivo.
+- Agregar ruido aleatorio a la variable dependiente 
+-Devolver el data frame y la serie
 
 ### Ejemplo de implementación:
 - Llamar a la función generate_regression_data con el número deseado de muestras.
@@ -86,10 +92,10 @@ Esta función aplica una función personalizada a cada valor de una columna espe
 Esta función filtra una lista de números para conservar solo aquellos que son mayores que cinco y calcula el cuadrado de esos números.
 
 ### Proceso
-- Crear una lista vacía para almacenar los números cuadrados.
-- Iterar sobre cada número en la lista proporcionada.
-- Verificar si el número es mayor que cinco; si es así, calcular su cuadrado y añadirlo a la lista de resultados.
-- Retornar la lista de números cuadrados que cumplieron con la condición.
+-Se itera sobre cada sublista dentro de list_of_list.
+-Para cada sublista, se itera sobre cada elemento (item) dentro de ella.
+-Cada elemento se añade a la nueva lista resultante.
+-Se retorna la lista generada
 
 ### Ejemplo de implementación
 - Definir una lista de números.
